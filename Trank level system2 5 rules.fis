@@ -1,0 +1,45 @@
+[System]
+Name='Trank level system2 5 rules'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=5
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Liquid-level'
+Range=[0 14]
+NumMFs=3
+MF1='low':'trapmf',[0 0 1 5]
+MF2='okay':'trimf',[1 5 9]
+MF3='high':'trapmf',[5 9 14 14]
+
+[Input2]
+Name='Rate'
+Range=[-4 4]
+NumMFs=3
+MF1='negative':'trapmf',[-4 -4 -0.5 0]
+MF2='zero':'trimf',[-0.5 0 0.5]
+MF3='positive':'trapmf',[0 0.5 4 4]
+
+[Output1]
+Name='valve-open'
+Range=[-30 30]
+NumMFs=5
+MF1='close-fast':'trapmf',[-30 -30 -20 -10]
+MF2='No-change':'trimf',[-10 0 10]
+MF3='open-fast':'trapmf',[10 20 30 30]
+MF4='close-slow':'trimf',[-20 -10 0]
+MF5='open-slow':'trimf',[0 10 20]
+
+[Rules]
+2 0, 2 (1) : 1
+1 0, 3 (1) : 1
+3 0, 1 (1) : 1
+2 1, 5 (1) : 1
+2 3, 4 (1) : 1
